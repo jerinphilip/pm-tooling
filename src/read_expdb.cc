@@ -12,5 +12,6 @@ int main(int argc, char **argv) {
     }
     ++data;
   }
+  fputc('\n', stdout);
   return 0;
 }
