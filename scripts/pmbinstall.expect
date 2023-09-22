@@ -1,0 +1,35 @@
+#!/usr/bin/expect
+
+# Set the timeout for expect statements (in seconds)
+# 30 minutes.
+set timeout 1800
+
+# Command to spawn and interact with
+# spawn /home/jerin/code/redmi6-postmarketos/pwd-form.sh
+spawn pmbootstrap --details-to-stdout -v install 
+
+# Expect the first prompt (e.g., "Enter password:")
+expect "New password:" {
+    send "unsafepwd\r"
+} timeout {
+    # Handle a timeout if the prompt doesn't appear
+    puts "Timed out waiting for the password prompt"
+    exit 1
+}
+
+# Expect the second prompt (e.g., "Confirm password:")
+expect "Retype new password:" {
+    send "unsafepwd\r"
+} timeout {
+    # Handle a timeout if the prompt doesn't appear
+    puts "Timed out waiting for the confirmation prompt"
+    exit 1
+}
+
+# Wait for the command to finish
+expect eof
+
+# Optionally, you can add more expect/send blocks for additional prompts
+
+# Exit the script
+exit 0
